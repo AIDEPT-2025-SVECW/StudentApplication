@@ -10,15 +10,16 @@ import com.bvraju.aidept.StudentApplication.Service.IStudentService;
 import com.bvraju.aidept.StudentApplication.model.Student;
 
 @RestController
-@RequestMapping("/student/search")
+@RequestMapping("/students/search")
 public class StudentSearchController {
 
     @Autowired
     private IStudentService studentService;
 
-    @GetMapping("/search")
-    public Student getStudentByParam(@RequestParam(name="name") String name,@RequestParam(name="dept")String dept) {
-        return new Student(name,"id",dept);
+    @GetMapping
+    public Student getStudentByParam(@RequestParam(name = "name") String name,
+            @RequestParam(name = "dept") String dept) {
+        return new Student(name, "id", dept);
     }
 
 }

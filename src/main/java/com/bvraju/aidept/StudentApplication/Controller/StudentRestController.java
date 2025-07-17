@@ -15,9 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bvraju.aidept.StudentApplication.Service.IStudentService;
 import com.bvraju.aidept.StudentApplication.model.Student;
 
-
 @RestController
-@RequestMapping("/student")
+@RequestMapping("/students")
 public class StudentRestController {
 
     @Autowired
@@ -29,7 +28,6 @@ public class StudentRestController {
         return studentService.getStudents();
     }
 
-   
     @GetMapping("/{id}")
     public Student getStudent(@PathVariable String id) {
         return studentService.getStudentByRegId(id);
@@ -39,54 +37,51 @@ public class StudentRestController {
     public String createStudent(@RequestBody Student newStudent) {
         int i = studentService.createStudent(newStudent);
         String message = "N/A";
-        if(i==1){
-            message="New Student bearing regId "+newStudent.getRegId()+" Created Successfully";
-        }else{
-            message="Student creation got failed, check the logs";
+        if (i == 1) {
+            message = "New Student bearing regId " + newStudent.getRegId() + " Created Successfully";
+        } else {
+            message = "Student creation got failed, check the logs";
         }
         return message;
     }
 
     // PUT – Replace student details completely
     @PutMapping("/{regId}")
-    public String updateStudent(@PathVariable String regId,@RequestBody Student updatedStudent){
-         int i =  studentService.updateStudent(updatedStudent);
+    public String updateStudent(@PathVariable String regId, @RequestBody Student updatedStudent) {
+        int i = studentService.updateStudent(updatedStudent);
         String message = "N/A";
-        if(regId.equals(updatedStudent.getRegId())){
-        
-        if(i==1){
-            message="Existing Student bearing regId"+updatedStudent.getRegId()+" is updated Successfully";
-        }else{
-            message="Student updation got failed, check the logs";
-        }
-        }else{
-        System.out.println("TODO: throw validation exception as regId in the path variable is not matching the body");
+        if (regId.equals(updatedStudent.getRegId())) {
+
+            if (i == 1) {
+                message = "Existing Student bearing regId" + updatedStudent.getRegId() + " is updated Successfully";
+            } else {
+                message = "Student updation got failed, check the logs";
+            }
+        } else {
+            System.out
+                    .println("TODO: throw validation exception as regId in the path variable is not matching the body");
         }
         return message;
     }
 
     // PATCH – Partially update student details (e.g. name or age)
     // @PatchMapping("/{regId}")
-    // public String patchStudent(@PathVariable String regId,Map<String,Object> keyValues){
-    //     return "Existing Student Partial update Successfully";
+    // public String patchStudent(@PathVariable String regId,Map<String,Object>
+    // keyValues){
+    // return "Existing Student Partial update Successfully";
     // }
 
     @DeleteMapping("/{regId}")
-    public String deleteStudent(@PathVariable String regId){
+    public String deleteStudent(@PathVariable String regId) {
         int i = studentService.deleteStudent(regId);
         String message = "N/A";
-        if(i==1){
-            message="Existing Student bearing regId"+regId+" is deleted Successfully";
-        }else{
-            message="Student deletion got failed, check the logs";
+        if (i == 1) {
+            message = "Existing Student bearing regId" + regId + " is deleted Successfully";
+        } else {
+            message = "Student deletion got failed, check the logs";
         }
         return message;
 
     }
-
-
-
-
-    
 
 }
