@@ -2,6 +2,7 @@ package com.bvraju.aidept.StudentApplication;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -99,6 +100,8 @@ public class StudentApplication {
 	 * provided from application properties or other configuration sources. It
 	 * serves
 	 * as the fundamental connection factory for all JDBC operations.
+	 * Make use of Actutator end points for bean in case of any further runtime
+	 * troubleshooting
 	 *
 	 * @return A configured {@link DataSource} instance.
 	 */
@@ -118,12 +121,15 @@ public class StudentApplication {
 	 * auto-configure it
 	 * when `spring-boot-starter-jdbc` is omitted. It is wired with the manually
 	 * configured {@code DataSource}.
+	 * Make use of Actutator end points for bean in case of any further runtime
+	 * troubleshooting
 	 *
 	 * @return A configured {@link JdbcTemplate} instance.
 	 */
 	@Bean
-	public JdbcTemplate getJdbcTemplate() {
-		JdbcTemplate jdt = new JdbcTemplate(getDataSource());
+	public JdbcTemplate getJdbcTemplate(@Autowired DataSource datasource) {
+
+		JdbcTemplate jdt = new JdbcTemplate(datasource);
 		return jdt;
 	}
 
@@ -136,12 +142,14 @@ public class StudentApplication {
 	 * explicit
 	 * configuration strategy. This bean enables the use of {@code @Transactional}
 	 * annotations for methods interacting with the defined {@code DataSource}.
+	 * Make use of Actutator end points for bean in case of any further runtime
+	 * troubleshooting
 	 *
 	 * @return A configured {@link PlatformTransactionManager} instance.
 	 */
 	@Bean
-	public PlatformTransactionManager getTransactionManager() {
-		PlatformTransactionManager tx = new DataSourceTransactionManager(getDataSource());
+	public PlatformTransactionManager getTransactionManager(@Autowired DataSource datasource) {
+		PlatformTransactionManager tx = new DataSourceTransactionManager(datasource);
 		return tx;
 	}
 
