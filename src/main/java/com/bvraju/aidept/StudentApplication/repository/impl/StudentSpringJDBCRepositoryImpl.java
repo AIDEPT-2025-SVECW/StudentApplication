@@ -8,6 +8,8 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bvraju.aidept.StudentApplication.model.Student;
 import com.bvraju.aidept.StudentApplication.repository.IStudentRepository;
@@ -50,6 +52,7 @@ public class StudentSpringJDBCRepositoryImpl implements IStudentRepository {
     }
 
     @Override
+    @Transactional
     public int saveOrUpdate(Student student) {
         int noOfRecordsImpacted = 0;
         String regId = student.getRegId();
@@ -76,6 +79,37 @@ public class StudentSpringJDBCRepositoryImpl implements IStudentRepository {
                 updateStudent.getSec(), updateStudent.getRegId(), };
         int noOfRecordsUpdated = jdbcTemplate.update(query, args);
         return noOfRecordsUpdated;
+    }
+
+    /*
+     * IMPORTANT: Transactional Behavior of TRUNCATE vs DELETE
+     *
+     * - TRUNCATE TABLE is a Data Definition Language (DDL) command. In most
+     * relational databases,
+     * including MySQL and PostgreSQL, DDL statements such as TRUNCATE, ALTER, and
+     * DROP
+     * trigger an automatic commit before and after their execution.
+     * - As a result, the effects of a TRUNCATE cannot be rolled back, even if this
+     * method is annotated with @Transactional.
+     * This means that the table will be emptied irreversibly, regardless of any
+     * subsequent errors or rollbacks in the transaction.
+     *
+     * - DELETE FROM is a Data Manipulation Language (DML) command, and remains
+     * fully transactional.
+     * When using DELETE within a @Transactional method, all changes can be rolled
+     * back if the transaction fails or is explicitly rolled back.
+     *
+     * For this reason, we use DELETE here instead of TRUNCATE to ensure that the
+     * table
+     * only gets cleared if the surrounding transaction successfully completes.
+     */
+    @Override
+    @Transactional
+    public void cleanup() {
+        // String query = "Truncate table student.student_details";
+        // jdbcTemplate.execute(query);
+        String query = "delete from student.student_details";
+        jdbcTemplate.update(query);
     }
 
 }

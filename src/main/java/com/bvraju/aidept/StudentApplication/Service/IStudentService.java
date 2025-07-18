@@ -1,5 +1,6 @@
 package com.bvraju.aidept.StudentApplication.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.bvraju.aidept.StudentApplication.model.Student;
@@ -16,6 +17,6 @@ public interface IStudentService {
 
     public int deleteStudent(String regId);
 
-    
+    public boolean loadStudents() throws IOException;
 
 }

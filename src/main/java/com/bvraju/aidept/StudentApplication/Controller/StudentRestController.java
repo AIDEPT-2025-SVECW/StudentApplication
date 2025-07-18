@@ -1,5 +1,6 @@
 package com.bvraju.aidept.StudentApplication.Controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,16 @@ public class StudentRestController {
             message = "Student creation got failed, check the logs";
         }
         return message;
+    }
+
+    @PostMapping("/bulk-load")
+    public void createStudents() {
+        try {
+            studentService.loadStudents();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     // PUT – Replace student details completely

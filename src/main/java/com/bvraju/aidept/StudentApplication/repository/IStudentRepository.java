@@ -14,4 +14,8 @@ public interface IStudentRepository {
 
     public int deleteByRegId(String regId);
 
+    public default void cleanup() {
+        System.out.println("Default implementation of clean up");
+    }
+
 }

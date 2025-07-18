@@ -1,19 +1,27 @@
 package com.bvraju.aidept.StudentApplication.Service.impl;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bvraju.aidept.StudentApplication.Service.IStudentService;
 import com.bvraju.aidept.StudentApplication.model.Student;
 import com.bvraju.aidept.StudentApplication.repository.IStudentRepository;
+import com.bvraju.aidept.StudentApplication.repository.impl.StudentExcelRepositoryImpl;
 
 @Service
 public class StudentServiceImpl implements IStudentService {
 
     @Autowired
     private IStudentRepository studentRepository;
+
+    @Autowired
+    @Qualifier("studentExcelRepositoryImpl")
+    private IStudentRepository studentsExcelRepository;
 
     public List<Student> getStudents() {
         return studentRepository.findAll();
@@ -65,6 +73,23 @@ public class StudentServiceImpl implements IStudentService {
             System.out.println("TODO: need to handle validation exception using        RestControllerAdvice");
         }
         return noOfStudentsDeleted;
+    }
+
+    @Transactional
+    public boolean loadStudents() throws IOException {
+        boolean loaded = false;
+        studentRepository.cleanup();
+        List<Student> students = ((StudentExcelRepositoryImpl) studentsExcelRepository).readStudentsFromExcel();
+        int index = 0;
+        for (Student currStudent : students) {
+            index++;
+            studentRepository.saveOrUpdate(currStudent);
+
+            if (index == 10) {
+                throw new RuntimeException("Intentional run time exceptino to verify Transaction");
+            }
+        }
+        return loaded;
     }
 
 }
