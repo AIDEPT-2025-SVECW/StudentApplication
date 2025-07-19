@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -68,13 +69,14 @@ public class StudentApplication {
 	 * `spring-boot-starter-jdbc`.
 	 *
 	 * Key Implications of this Approach:
-	 * 1. DataSource & TransactionManager: Spring Boot's `@EnableAutoConfiguration`
+	 * 1. TransactionManager: Spring Boot's `@EnableAutoConfiguration`
 	 * is smart
-	 * enough to auto-configure a `DataSource` and a `PlatformTransactionManager` if
+	 * a `PlatformTransactionManager` if
 	 * it
 	 * finds a JDBC driver on the classpath and `spring.datasource.*` properties.
 	 *
-	 * 2. JdbcTemplate Not Auto-Configured: However, the auto-configuration for
+	 * 2. DataSource & JdbcTemplate Not Auto-Configured: However, the
+	 * auto-configuration for
 	 * `JdbcTemplate`
 	 * is part of a specific class (`JdbcTemplateAutoConfiguration`) that is only
 	 * activated

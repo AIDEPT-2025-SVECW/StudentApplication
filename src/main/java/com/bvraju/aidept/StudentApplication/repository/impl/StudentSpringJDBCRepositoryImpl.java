@@ -104,7 +104,7 @@ public class StudentSpringJDBCRepositoryImpl implements IStudentRepository {
      * only gets cleared if the surrounding transaction successfully completes.
      */
     @Override
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void cleanup() {
         // String query = "Truncate table student.student_details";
         // jdbcTemplate.execute(query);

@@ -75,7 +75,7 @@ public class StudentServiceImpl implements IStudentService {
         return noOfStudentsDeleted;
     }
 
-    @Transactional
+    @Transactional // start transaction here
     public boolean loadStudents() throws IOException {
         boolean loaded = false;
         studentRepository.cleanup();
@@ -90,6 +90,6 @@ public class StudentServiceImpl implements IStudentService {
             }
         }
         return loaded;
-    }
+    }// transaction ends here
 
 }
