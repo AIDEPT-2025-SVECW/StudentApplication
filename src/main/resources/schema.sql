@@ -14,7 +14,8 @@ CREATE TABLE IF NOT EXISTS `student_details` (
 CREATE TABLE IF NOT EXISTS Skills (
     id INT AUTO_INCREMENT PRIMARY KEY,
     techstack VARCHAR(25) NOT NULL,
-    category VARCHAR(25) NOT NULL
+    category VARCHAR(25) NOT NULL,
+    UNIQUE KEY uniq_tech_category (techstack, category)
 );
 
 CREATE TABLE IF NOT EXISTS student_skills (
