@@ -7,6 +7,10 @@ import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -15,14 +19,18 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name = "student_details")
 public class Student {
     @NonNull
     private String name;
     @NonNull
+    @Id
+    @Column(name = "regid")
     private String regId;
     @NonNull
     private String dept;
-
+    @Column(name = "section")
     private String sec;
 
     private String college;

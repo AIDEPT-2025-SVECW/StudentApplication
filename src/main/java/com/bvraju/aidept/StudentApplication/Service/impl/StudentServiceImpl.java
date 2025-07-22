@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bvraju.aidept.StudentApplication.Service.IStudentService;
 import com.bvraju.aidept.StudentApplication.model.Student;
+import com.bvraju.aidept.StudentApplication.repository.IStudentJPARepository;
 import com.bvraju.aidept.StudentApplication.repository.IStudentRepository;
 import com.bvraju.aidept.StudentApplication.repository.impl.StudentExcelRepositoryImpl;
 
@@ -20,59 +21,69 @@ public class StudentServiceImpl implements IStudentService {
     private IStudentRepository studentRepository;
 
     @Autowired
+    private IStudentJPARepository studentJPARepository;
+
+    @Autowired
     @Qualifier("studentExcelRepositoryImpl")
     private IStudentRepository studentsExcelRepository;
 
     public List<Student> getStudents() {
-        return studentRepository.findAll();
+        return studentJPARepository.findAll();
     }
 
     public Student getStudentByRegId(String regId) {
-        Student studentDetails = null;
-        if (Student.isValidRegId(regId)) {
-            studentDetails = studentRepository.findByRegId(regId);
-        } else {
-            System.out.println("TODO: throw Validation exception and handle using        RestControllerAdvice");
-        }
-        return studentDetails;
+        // Student studentDetails = null;
+        // if (Student.isValidRegId(regId)) {
+        // studentDetails = studentRepository.findByRegId(regId);
+        // } else {
+        // System.out.println("TODO: throw Validation exception and handle using
+        // RestControllerAdvice");
+        // }
+        return studentJPARepository.findById(regId).orElse(new Student());
     }
 
     public int createStudent(Student newStudent) {
-        int noOfStudentsCreated = 0;
-        if (newStudent.isValid()) {
-            noOfStudentsCreated = studentRepository.saveOrUpdate(newStudent);
-        } else {
-            System.out.println("TODO: need to throw validation exception and handle        using");
+        // int noOfStudentsCreated = 0;
+        // if (newStudent.isValid()) {
+        // noOfStudentsCreated = studentRepository.saveOrUpdate(newStudent);
+        // } else {
+        // System.out.println("TODO: need to throw validation exception and handle
+        // using");
 
-        }
-        return noOfStudentsCreated;
+        // }
+        return studentJPARepository.save(newStudent) != null ? 1 : 0;
     }
 
     public int updateStudent(Student updatedStudent) {
-        int noOfStudentsUpdated = 0;
-        if (updatedStudent.isValid()) {
-            noOfStudentsUpdated = studentRepository.saveOrUpdate(updatedStudent);
-        } else {
-            System.out
-                    .println("TODO: need to throw validation exception and handle using        RestController Advice");
-        }
-        return noOfStudentsUpdated;
+        // int noOfStudentsUpdated = 0;
+        // if (updatedStudent.isValid()) {
+        // noOfStudentsUpdated = studentRepository.saveOrUpdate(updatedStudent);
+        // } else {
+        // System.out
+        // .println("TODO: need to throw validation exception and handle using
+        // RestController Advice");
+        // }
+        // return noOfStudentsUpdated;
+        return studentJPARepository.save(updatedStudent) != null ? 1 : 0;
     }
 
     public int deleteStudent(String regId) {
-        int noOfStudentsDeleted = 0;
-        if (Student.isValidRegId(regId)) {
-            Student existingStudentDtls = getStudentByRegId(regId);
-            if (existingStudentDtls != null) {
-                noOfStudentsDeleted = studentRepository.deleteByRegId(regId);
-            } else {
-                System.out.println(
-                        "TODO: need to handle resource doesnt exists to update exception and display            constructive message");
-            }
-        } else {
-            System.out.println("TODO: need to handle validation exception using        RestControllerAdvice");
-        }
-        return noOfStudentsDeleted;
+        // int noOfStudentsDeleted = 0;
+        // if (Student.isValidRegId(regId)) {
+        // Student existingStudentDtls = getStudentByRegId(regId);
+        // if (existingStudentDtls != null) {
+        // noOfStudentsDeleted = studentRepository.deleteByRegId(regId);
+        // } else {
+        // System.out.println(
+        // "TODO: need to handle resource doesnt exists to update exception and display
+        // constructive message");
+        // }
+        // } else {
+        // System.out.println("TODO: need to handle validation exception using
+        // RestControllerAdvice");
+        // }
+        studentJPARepository.deleteById(regId);
+        return 1;
     }
 
     @Transactional // start transaction here
