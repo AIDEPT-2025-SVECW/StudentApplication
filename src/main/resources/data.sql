@@ -330,3 +330,7 @@ insert ignore into Skills (techstack, category) VALUES
 ('Postman', 'api'),
 ('Swagger', 'api'),
 ('Selenium', 'frontend');
+
+--INSERT INTO `student`.`users`(`userid`,`password`) VALUES ("jp","emoTeliyadu");
+--INSERT INTO `student`.`users`(`userid`,`password`) VALUES ("jp1","nekuEnduku");
+--INSERT INTO `student`.`users`(`userid`,`password`) VALUES ("jp2","244466666");

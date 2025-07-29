@@ -26,3 +26,11 @@ CREATE TABLE IF NOT EXISTS student_skills (
     FOREIGN KEY (skills_id) REFERENCES Skills(id) ON DELETE CASCADE
 );
 
+
+CREATE TABLE IF NOT EXISTS `student`.`users` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `userid` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`));
+
+
