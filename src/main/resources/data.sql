@@ -331,6 +331,7 @@ insert ignore into Skills (techstack, category) VALUES
 ('Swagger', 'api'),
 ('Selenium', 'frontend');
 
---INSERT INTO `student`.`users`(`userid`,`password`) VALUES ("jp","emoTeliyadu");
---INSERT INTO `student`.`users`(`userid`,`password`) VALUES ("jp1","nekuEnduku");
---INSERT INTO `student`.`users`(`userid`,`password`) VALUES ("jp2","244466666");
+--INSERT INTO `student`.`users`(`userid`,`password`) VALUES ("suma","forgot");
+--INSERT INTO `student`.`users`(`userid`,`password`) VALUES ("hema","dontKnow");
+--INSERT INTO `student`.`users` (`userid`,`password`) VALUES ('suma','{bcrypt}$2a$12$Tay5LBHPfB1P8Vbj2IjI7eNJIMwbpShZIpEKcUCw4wNYQjH3QsgLe');
+--INSERT INTO `student`.`users` (`userid`,`password`) VALUES ('hema','{bcrypt}$2a$12$RIHB9.2JPqsRJbggDcreBO20OdqwX/zSrIDfvyvDJHaxROcet5gmq');
