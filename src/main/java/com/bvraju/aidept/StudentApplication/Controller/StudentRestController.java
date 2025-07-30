@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bvraju.aidept.StudentApplication.Service.IStudentService;
@@ -93,6 +94,13 @@ public class StudentRestController {
         }
         return message;
 
+    }
+
+    @GetMapping("/search")
+    public Student getStudentByParam(@RequestParam(name = "name") String name,
+            @RequestParam(name = "dept") String dept) {
+        // TODO need to implement the actual logic
+        return new Student(name, "id", dept);
     }
 
 }
