@@ -331,7 +331,12 @@ insert ignore into Skills (techstack, category) VALUES
 ('Swagger', 'api'),
 ('Selenium', 'frontend');
 
---INSERT INTO `student`.`users`(`userid`,`password`) VALUES ("suma","forgot");
---INSERT INTO `student`.`users`(`userid`,`password`) VALUES ("hema","dontKnow");
---INSERT INTO `student`.`users` (`userid`,`password`) VALUES ('suma','{bcrypt}$2a$12$Tay5LBHPfB1P8Vbj2IjI7eNJIMwbpShZIpEKcUCw4wNYQjH3QsgLe');
---INSERT INTO `student`.`users` (`userid`,`password`) VALUES ('hema','{bcrypt}$2a$12$RIHB9.2JPqsRJbggDcreBO20OdqwX/zSrIDfvyvDJHaxROcet5gmq');
+--INSERT ignore INTO `student`.`users` (`userid`,`password`,`role`) VALUES ('suma','forgot','ADMIN');
+--INSERT ignore INTO `student`.`users` (`userid`,`password`,`role`) VALUES ('hema','dontKnow','TEACHER');
+--INSERT ignore INTO `student`.`users` (`userid`,`password`,`role`) VALUES ('mahi','nekuEnduku','STUDENT');
+--INSERT ignore INTO `student`.`users` (`userid`,`password`,`role`) VALUES ('jp','evaro','GUEST');
+--delete from student.users;
+INSERT ignore INTO `student`.`users` (`userid`,`password`,`role`) VALUES ('suma','{bcrypt}$2a$12$gbfhoFd6Kd9VIgWdvMlAR./RTHJr5WuvDszNE8P7iDK3xqXs7fFqe','ADMIN');
+INSERT ignore INTO `student`.`users` (`userid`,`password`,`role`) VALUES ('hema','{bcrypt}$2a$12$TGfJQc4U98NWd2jyhIMAX.bJmD83YrcOSUAsRnjfAV8KZtLDrL65i','TEACHER');
+INSERT ignore INTO `student`.`users` (`userid`,`password`,`role`) values ('mahi','{noop}nekuEnduku','STUDENT');
+INSERT ignore INTO `student`.`users` (`userid`,`password`,`role`) values ('jp','{noop}evaro','GUEST');

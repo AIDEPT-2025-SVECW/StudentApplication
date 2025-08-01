@@ -31,6 +31,9 @@ CREATE TABLE IF NOT EXISTS `student`.`users` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `userid` VARCHAR(45) NOT NULL,
   `password` VARCHAR(90) NOT NULL,
-  PRIMARY KEY (`id`));
+  `role` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_userid` (`userid`)
+);
 
 
