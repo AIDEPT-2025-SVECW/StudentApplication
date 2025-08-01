@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "users")
-public class User {
+public class MyUser {
     @Id
     private int id;
     @NonNull
